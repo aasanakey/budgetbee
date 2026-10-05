@@ -19,6 +19,8 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
+    expose:
+      - "9000"
     depends_on:
       db:
         condition: service_healthy
@@ -29,6 +31,9 @@ services:
       - skynet
   web:
     image: ghcr.io/budgetbee/budgetbee/web:latest
+    command: npx vite --host 0.0.0.0 --port 3000
+    expose:
+      - "3000"
     restart: unless-stopped
     networks:
       - skynet
